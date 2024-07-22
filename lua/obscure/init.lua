@@ -1,16 +1,13 @@
 print("Obscure has been loaded...")
 
 local M = {}
+local https = require("ssl.https")
 local http = require("socket.http")
 local ltn12 = require("ltn12")
 
-function M.say_hello()
-    print("Hello, World!")
-end
-
 function M.make_api_call(url)
     local response_body = {}
-    local res, code, response_headers = http.request{
+    local res, code, response_headers = https.request{
         url = url,
         sink = ltn12.sink.table(response_body)
     }
